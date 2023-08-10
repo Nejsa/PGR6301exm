@@ -20,9 +20,8 @@ export function ActivitiesApi(db) {
 
         api.post("/", (req, res) => {
             const {hours, activity} = req.body;
-            console.log(hours, activity)
 
-            db.collection("activitiesList").insertOne({hours, activity});
+            db.collection("activities").insertOne({hours, activity});
 
             res.sendStatus(200);
         });

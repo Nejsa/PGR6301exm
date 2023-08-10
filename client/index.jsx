@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import { createRoot } from "react-dom/client";
 import {BrowserRouter, json, Link, Route, Routes} from "react-router-dom";
 import LogHours from "./logHours";
-import ShowActivities from "./showActivities";
 
 
 const element = document.getElementById("app");
@@ -10,9 +9,30 @@ const root = createRoot(element);
 
 
 function FrontPage() {
+    const { loading, error, data } = useLoader(async () => {
+    return fetchJSON("/api/activities");
+});
+
+
+    if(loading) {
+        return <div> Still Loading... </div>
+    }
+
+    if(error) {
+        return (
+            <div>
+                <h1> Error </h1>
+                <div> {error.toString()} </div>
+            </div>
+        );
+    }
+
     return(
         <div>
             <h1> Home page for Activities</h1>
+            <p>Its currently available: {
+                data.length
+            }</p>
             <ul>
                 <li>
                     <Link to={"/logHours"}> Log your hours </Link>
@@ -25,20 +45,13 @@ function FrontPage() {
     );
 }
 
-async function fetchJSON(url, options = {}){
-    const res = await fetch(url, {
-        method: options.method || "get",
-        headers: options.json ? {"content-type" : "application/json"} : {},
-        body: options.json && JSON.stringify(options.json),
-    });
-
-    if(!res.ok) {
-        throw new Error(`Loading error: ${res.status} -> ${res.statusText};`)
+async function fetchJSON(url) {
+    const res = await fetch(url)
+    if (!res.ok){
+        throw new Error (`fail to load${res.status}`)
     }
+    return await res.json()
 
-    if(res.status === 200){
-        return await res.json();
-    }
 }
 
 function useLoader(loadingFunction){
@@ -66,13 +79,11 @@ function useLoader(loadingFunction){
 
 
 
-
-export function showActivities(){
-    const [hours, setHours] = useState("")
-    const [activity, setActivity] = useState("")
+export function ShowActivities(ListActivities){
     const { loading, error, data } = useLoader(async () => {
         return fetchJSON("/api/activities");
     });
+
 
     if(loading) {
         return <div> Still Loading... </div>
@@ -89,10 +100,19 @@ export function showActivities(){
 
     return (
         <div>
-            <h1> Activities to come back to: </h1>
+            <h1> Available Activities: </h1>
+            <div>
+            <div>
+                <Link to={"/"}> Go back to home </Link>
+            </div>
+            <div>
+                <Link to={"/logHours"}> Log your hours </Link>
+            </div>
+        </div>
             {data.map((activity) => (
                 <div key={activity.hours}>
                     <h1> {activity.activity} </h1>
+                    <p> Hours: {activity.hours} </p>
                 </div>
             ))}
         </div>
@@ -120,12 +140,11 @@ function Application() {
         return await fetchJSON("api/activities")
 
     }
-    console.log(ListActivities)
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={"/"} element={<FrontPage />} />
-                <Route path={"/ShowActivities/*"} element={<ShowActivities />} />
+                <Route path={"/"} element={<FrontPage ListActivities={ListActivities} />} />
+                <Route path={"/ShowActivities/*"} element={<ShowActivities ListActivities={ListActivities} />} />
                 <Route path={"/logHours/*"} element={<LogHours />} />
             </Routes>
         </BrowserRouter>

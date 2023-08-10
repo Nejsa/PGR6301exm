@@ -8,7 +8,7 @@ function LogHours() {
         <div>
             <div>
                 <h1> Log your Hours </h1>
-                <Link to={"/ShowActivities"}> Go to Activities </Link>
+                <Link to={"/"}> Go to Activities </Link>
             </div>
             <div>
                 <Link to="/">Go back to home</Link>
