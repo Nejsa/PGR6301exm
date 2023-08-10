@@ -1,6 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import {LogHours} from "./logHours";
+import {ShowActivities} from "./showActivities";
+
 
 function FrontPage() {
     return(
@@ -17,6 +20,27 @@ function FrontPage() {
         </div>
     );
 }
+
+function LogHours() {
+    return (
+        <div>
+            <h1> Log your Hours </h1>
+            {}
+            <Link to={"/activities"}> Go back to home </Link> {}
+        </div>
+    );
+}
+
+function ShowActivities() {
+    return (
+        <div>
+            <h1> Show Activities Available </h1>
+            {}
+            <Link to={"/activities"}> Go back to home </Link> {}
+        </div>
+    );
+}
+
 
 function Activities(){
     return(

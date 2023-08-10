@@ -10,7 +10,8 @@
     "dev": "concurrently npm:dev:client npm:dev:server",
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
-    "test": "jest"
+    "test": "jest",
+    "verify": "jest --collectCoverage"
   },
   "keywords": [],
   "author": "",
@@ -31,5 +32,12 @@
     "prettier": "^3.0.0",
     "process": "^0.11.10",
     "rimraf": "^5.0.1"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "collectCoverageFrom": [
+      "*.jsx"
+    ]
   }
 }
+

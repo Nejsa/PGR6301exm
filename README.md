@@ -2,16 +2,16 @@
 
 
 * [ ] Some form of Login and access control
-* [ ] Jest tests
+* [Basic] Jest tests
 * [ ] Snapshot tests
 * [ ] Simulate + jest.fn
 * [ ] Supertest
 * [Denne] GitHub Actions with coverage report
-* [Denne] Mongodb
-* [ ] Navigating in the application using React Router (remember Express Middleware)
+* [] Mongodb
+* [Done] Navigating in the application using React Router (remember Express Middleware)
 * [ ] Reading data from the server (remember error handling)
 * [ ] Writing data to the server
-* [Denne] Deployment to cloud (in this case, Azure)
+* [Half Done] Deployment to cloud (in this case, Azure)
 * [ ] Websockets
 
 ## A temporary plan for the project, will evolve as we move further
@@ -19,20 +19,21 @@
 * [Done] ReadME.md file
 * [Done] Client and Server setup
 * [Done] Server Working and is displaying something.
-* [Done] Setup GitHub actions (Currently not working due to no tests implemented yet)
+* [Done] Setup GitHub actions (Works)
 * [Half Done] Setup Deployment to Azure (Same with Azure not working due to no tests implemented yet)
 * [ ] Setup MongoDB
 * [ ] A log In page
 * [ ] A home page
-* [ ] Two task related pages
+* [Done] Two task related pages
+* [ ] Fix the Deployment time for Azure Build (Averages currently 50min build time)
 
 
 
 # Grading Requirements
 
 * **R1** Requirements **necessary**, but not **sufficient**, for an **E**
-* Write a homepage with React
-* Have at least 2 other React pages that can be accessed via React-Router
+* [x]Write a homepage with React
+* [x]Have at least 2 other React pages that can be accessed via React-Router
 * At least one page should have some "state", with a change that should be triggered from
   the interface.
 * From each page, be able to navigate back (either to previous page or to homepage)
