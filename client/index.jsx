@@ -1,51 +1,16 @@
 import React, {useState, useEffect} from "react";
 import { createRoot } from "react-dom/client";
 import {BrowserRouter, json, Link, Route, Routes} from "react-router-dom";
+import ListActivities from "./listActivities";
 import LogHours from "./logHours";
+import FrontPage from "./frontPage";
+
 
 
 const element = document.getElementById("app");
 const root = createRoot(element);
 
-
-function FrontPage() {
-    const { loading, error, data } = useLoader(async () => {
-    return fetchJSON("/api/activities");
-});
-
-
-    if(loading) {
-        return <div> Still Loading... </div>
-    }
-
-    if(error) {
-        return (
-            <div>
-                <h1> Error </h1>
-                <div> {error.toString()} </div>
-            </div>
-        );
-    }
-
-    return(
-        <div>
-            <h1> Home page for Activities</h1>
-            <p>Its currently available: {
-                data.length
-            }</p>
-            <ul>
-                <li>
-                    <Link to={"/logHours"}> Log your hours </Link>
-                </li>
-                <li>
-                    <Link to={"/ShowActivities"}> Show Available Activities </Link>
-                </li>
-            </ul>
-        </div>
-    );
-}
-
-async function fetchJSON(url) {
+export async function fetchJSON(url) {
     const res = await fetch(url)
     if (!res.ok){
         throw new Error (`fail to load${res.status}`)
@@ -54,104 +19,66 @@ async function fetchJSON(url) {
 
 }
 
-function useLoader(loadingFunction){
+export async function updateActivity(url, data){
+    const updatedData = {
+        hours : data.hours,
+        activity : data.activity,
+        maxHours : data.maxHours
+    }
+    console.log(url, updatedData)
+    try {
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            }, body: JSON.stringify(updatedData)
+        })
+        if (response.status === 200){
+            console.log("Successful")
+        } else if (response.status === 404)
+            console.log("Failed")
+    } catch (error) {console.log (error)}
+}
+
+export function useLoader(loadingFunction) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
     const [data, setData] = useState();
 
-    async function load(){
-        try{
+    async function load() {
+        try {
+            console.log("Loading data...");
             setLoading(true);
+            console.log(loadingFunction);
             setData(await loadingFunction());
-        }
-        catch (error){
+            console.log("Data loaded successfully.");
+        } catch (error) {
+            console.error("Error loading data:", error);
             setError(error);
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
     }
 
-    useEffect(() => load(), []);
+    useEffect(() => {
+        console.log("useLoader effect triggered.");
+        load();
+    }, []);
 
     return { loading, error, data };
 }
 
-
-
-export function ShowActivities(ListActivities){
-    const { loading, error, data } = useLoader(async () => {
-        return fetchJSON("/api/activities");
-    });
-
-
-    if(loading) {
-        return <div> Still Loading... </div>
-    }
-
-    if(error) {
-        return (
-            <div>
-                <h1> Error </h1>
-                <div> {error.toString()} </div>
-            </div>
-        );
-    }
-
-    return (
-        <div>
-            <h1> Available Activities: </h1>
-            <div>
-            <div>
-                <Link to={"/"}> Go back to home </Link>
-            </div>
-            <div>
-                <Link to={"/logHours"}> Log your hours </Link>
-            </div>
-        </div>
-            {data.map((activity) => (
-                <div key={activity.hours}>
-                    <h1> {activity.activity} </h1>
-                    <p> Hours: {activity.hours} </p>
-                </div>
-            ))}
-        </div>
-    );
-}
-
-
-
-    async function handleSumbit(e){
-        e.preventDefault()
-
-        await fetchJSON("/api/activities", {
-            method: "post",
-            json: {hours, activity}
-        })
-
-        setHours("")
-        setActivity("")
-
-}
-
-
 function Application() {
-   async function ListActivities(){
-        return await fetchJSON("api/activities")
-
-    }
-    return (
+   return (
         <BrowserRouter>
             <Routes>
-                <Route path={"/"} element={<FrontPage ListActivities={ListActivities} />} />
-                <Route path={"/ShowActivities/*"} element={<ShowActivities ListActivities={ListActivities} />} />
+                <Route path={"/"} element={<FrontPage />} />
+                <Route path={"/ShowActivities/*"} element={<ListActivities />} />
                 <Route path={"/logHours/*"} element={<LogHours />} />
             </Routes>
         </BrowserRouter>
     );
 }
-
-// root.render(<h1>Something Displayed!</h1>)
 
 
 root.render(<Application />);

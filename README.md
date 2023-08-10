@@ -48,6 +48,31 @@
 - log hours on one or more of those activities, so long as they are still under the
   maximum amount of hours.
 
+### Issues, Assumptions and Self Evaluation
 
-36min
-1.15.30
+# Issue 1: MongoDB
+- One issue I had with this examination was receiving and displaying data from MongoDB. 
+  I tried doing the T1 Tasks with Mongodb, without realising you could perform it by hardcoding data, and later develop a method regarding MongoDB. 
+  I tried taking inspiration from "lecture-8", but this time it did not work with me for some reason. My commit logs will tell you my process and time with this issue.
+  I would say that I managed the mongodb section poorly. 
+  While I would have loved to implement the mongodb data, I can safely say my current method is functional and satisfied the task requirements which is the most important part.
+
+# Issue 2: Azure Deployment Job
+- This one is interesting, for as of at this moment, I haven't finished uploading the application. It is in works, and hopefully I will make it work. 
+  The reason I say it is interesting is that the GitHub Deployment job passes everytime because of the tests and Microsoft Azure Service, but the problem I encountered was the Deployement time.
+  It averaged around I would say fifty minutes. That is a long time, especially when is only took 10-20 minutes in the lectures. 
+  The reason for this issue was because there was too many files being read, you already get a warning if you have over 10 000 files, and I had over 30 000. 
+  I could not find how to reduce the file number, other than maybe adding unnecessary files to gitignore, which I did, but it didn't seem to fix the issue.
+
+# Assumption 1
+- One major mistake and maybe the most time-consuming was where I read the "Technologies you should include" as "Technologies you MUST include".
+  This was a bad assumption as I hardly had time to do the other tasks because I was busy trying to implement 'Issue 1'. 
+  Thankfully I got done with R1 and T1 before moving on to implement other technologies. 
+
+#
+
+
+
+
+
+
