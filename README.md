@@ -47,3 +47,7 @@
 - how many hours they have already logged,
 - log hours on one or more of those activities, so long as they are still under the
   maximum amount of hours.
+
+
+36min
+1.15.30
