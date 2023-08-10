@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { createRoot } from "react-dom/client";
 import {BrowserRouter, json, Link, Route, Routes} from "react-router-dom";
 import LogHours from "./logHours";
 import ShowActivities from "./showActivities";
 
+
 const element = document.getElementById("app");
 const root = createRoot(element);
+
 
 function FrontPage() {
     return(
@@ -62,7 +64,12 @@ function useLoader(loadingFunction){
     return { loading, error, data };
 }
 
-function ListMovies() {
+
+
+
+export function showActivities(){
+    const [hours, setHours] = useState("")
+    const [activity, setActivity] = useState("")
     const { loading, error, data } = useLoader(async () => {
         return fetchJSON("/api/activities");
     });
@@ -82,22 +89,15 @@ function ListMovies() {
 
     return (
         <div>
-            <h1> Movies to come back to: </h1>
-            {
-                data.map( (activities) => (
-                    <div key={activities.hours}> <h1> {activities.activity} ->  </h1>
-                        <div>
-                        </div>
-                    </div>
-                ))}
-
+            <h1> Activities to come back to: </h1>
+            {data.map((activity) => (
+                <div key={activity.hours}>
+                    <h1> {activity.activity} </h1>
+                </div>
+            ))}
         </div>
     );
 }
-
-export function showActivities(){
-    const [hours, setHours] = useState("")
-    const [activity, setActivity] = useState("")
 
 
 
@@ -111,12 +111,16 @@ export function showActivities(){
 
         setHours("")
         setActivity("")
-    }
 
 }
 
 
 function Application() {
+   async function ListActivities(){
+        return await fetchJSON("api/activities")
+
+    }
+    console.log(ListActivities)
     return (
         <BrowserRouter>
             <Routes>

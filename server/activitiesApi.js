@@ -20,10 +20,11 @@ export function ActivitiesApi(db) {
 
         api.post("/", (req, res) => {
             const {hours, activity} = req.body;
+            console.log(hours, activity)
 
-            db.collection("activities").insertOne({hours, activity});
+            db.collection("activitiesList").insertOne({hours, activity});
 
-            res.sendStatus(204);
+            res.sendStatus(200);
         });
 
         return api;

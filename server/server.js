@@ -16,8 +16,10 @@ if(mongodburl){
 
     client
         .connect()
-        .then((conn) => app.use("/api/activities",
-            ActivitiesApi(conn.db(process.env.MONGODB_DATABASE || "Activities" ))));
+        .then((conn) => { console.log("Database Connected")
+            app.use("/api/activities",
+                ActivitiesApi(conn.db(process.env.MONGODB_DATABASE || "ActivitiesList")))
+        });
 
 }
 
