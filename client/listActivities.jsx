@@ -48,22 +48,7 @@ function ListActivities() {
     );
 }
 
-   /* return (
-        <div>
-            <h1>Available Activities:</h1>
-            {activities.map((activity, index) => (
-                <div key={index}>
-                    <h2>{activity.activity}</h2>
-                    <p>Hours: {activity.hours}</p>
-                </div>
-            ))}
-            <div>
-                <Link to="/">Go back to home</Link>
-            </div>
-        </div>
-    );
-}
-*/
+
 
 
 export default ListActivities;
