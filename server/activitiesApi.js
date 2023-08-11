@@ -35,9 +35,9 @@ export function ActivitiesApi(db) {
         );
 
         if (result.modifiedCount === 1) {
-            res.sendStatus(200);
+            res.sendStatus(200); // success code
         } else {
-            res.sendStatus(404); // Not found
+            res.sendStatus(404); // error code
         }
     });
 

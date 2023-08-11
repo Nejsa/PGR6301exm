@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { fetchJSON, useLoader } from "./index";
 
 function ListActivities() {
-    // Dummy data
+    // Dummy data no longer in use cause of MongoDB data
     const activities = [
         { activity: "Refactor Code", available: true },
         { activity: "Finish Frontend Code", available: true },
@@ -16,7 +16,7 @@ function ListActivities() {
 
     const availableActivities = activities.filter((activity) => activity.available);
     console.log(data)
-    if (loading) {
+    if (loading) {``
         return <div> Still Loading... </div>;
     }
 
