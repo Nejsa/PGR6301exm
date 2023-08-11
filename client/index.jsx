@@ -20,24 +20,22 @@ export async function fetchJSON(url) {
 }
 
 export async function updateActivity(url, data){
-    const updatedData = {
-        hours : data.hours,
-        activity : data.activity,
-        maxHours : data.maxHours
-    }
-    console.log(url, updatedData)
-    try {
+
+   try {
         const response = await fetch(url, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-            }, body: JSON.stringify(updatedData)
+            }, body: JSON.stringify({
+                hours:data.hoursLogged,
+            })
         })
         if (response.status === 200){
             console.log("Successful")
         } else if (response.status === 404)
             console.log("Failed")
     } catch (error) {console.log (error)}
+
 }
 
 export function useLoader(loadingFunction) {

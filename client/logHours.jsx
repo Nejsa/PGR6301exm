@@ -14,7 +14,7 @@ function LogHours() {
         const activity = data?.find((act) => act.activity === selectedActivity.activity);
         if (activity) {
             if (hoursLogged + 1 <= activity.maxHours) {
-                setHoursLogged(hoursLogged + 1);
+                setHoursLogged(selectedActivity.hours += 1);
             } else {
                 alert("Maximum hours reached for this activity!");
             }
@@ -23,7 +23,7 @@ function LogHours() {
 
     const saveHoursToApi = async () => {
         try {
-            await updateActivity(`/api/activities/${selectedActivity?._id}` ,{selectedActivity})
+            await updateActivity(`/api/activities/${selectedActivity?._id}` ,{hoursLogged})
             } catch(error){
                 console.log(error)
             }
